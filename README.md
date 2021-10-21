@@ -75,6 +75,10 @@ With this approach, here are two common access patterns:
     git clone https://github.com/hariohmprasath/eks-a-connect-with-aws.git .
     ```
 
+## Assumptions
+
+This blog post assumes that you already have an EKS Anywhere cluster running in a docker based on vSphere environment. For step by step instruction on creating a new EKS Anywhere cluster, refer [here](https://anywhere.eks.amazonaws.com/docs/getting-started/)
+
 ## Step by step guide
 
 ### Self-Signed Certificate for Pod Identity Webhook
@@ -84,11 +88,13 @@ At the end of this step a self-signed certificate will be generated under `certs
 1. Run the following command to setup environment variables, clean up pre-existing certs
 
 ```bash
+# Set environment variables
 CERTIFICATE_PERIOD=365
 POD_IDENTITY_SERVICE_NAME=pod-identity-webhook
 POD_IDENTITY_SECRET_NAME=pod-identity-webhook
 POD_IDENTITY_SERVICE_NAMESPACE=kube-system
 
+# Cleanup existing certs (if any)
 rm -rf certs
 mkdir -p certs
 ```
