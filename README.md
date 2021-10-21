@@ -202,7 +202,7 @@ cat <<EOF > discovery.json
 }
 EOF
 
-# Utility that helps in generating `discovery.json` and `keys.json`
+# Utility that helps in generating `discovery.json` and `keys.json`, extracted from `kubernetes` codebase available part of this PR https://github.com/kubernetes/kubernetes/pull/78502
 go run ./main.go -key $PKCS_KEY  | jq '.keys += [.keys[0]] | .keys[1].kid = ""' > keys.json
 
 # List all keys
