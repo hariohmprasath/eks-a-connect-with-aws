@@ -1,10 +1,10 @@
-# Integrate AWS EKS Anywhere cluster with AWS Services
+# Enabling EKS Anywhere pod-level authentication with AWS
 
 ## Overview
 
 Amazon EKS Anywhere is a new deployment option for Amazon EKS that allows customers to create and operate Kubernetes clusters on customer-managed infrastructure, supported by AWS. To learn more about EKS Anywhere follow this [link](https://aws.amazon.com/eks/eks-anywhere/)
 
-It’s quite common for customers to self host certain infrastructure components like database and cache part of their own data center and use AWS for rest of their infrastructure needs to reduce the hosting cost. This blog post provides step-by-step instruction on integrating AWS EKS Anywhere with AWS Services so the applications running on customer data center can securely connect with these services.
+It’s quite common for customers to self host certain infrastructure components like database and cache part of their own data center and use AWS for rest of their infrastructure needs to reduce the hosting cost. This blog post provides step-by-step instruction on enabling AWS EKS Anywhere pod-level authentication with AWS, so the applications running on customer data center can securely connect with their dependent AWS services.
 
 ## Customer benefits
 
@@ -256,6 +256,8 @@ Kubernetes API server configuration needs to be updated with the following flags
 * `--service-account-signing-key-file` - Path to the signing (`private`) key (`$PRIV_KEY`)
 * `--api-audiences` - Identifiers of the API. The service account token authenticator will validate that tokens used against the API are bound to at least one of these audiences.
 * `--service-account-issuer` - The issuer URL, or `https://$ISSUER_HOSTPATH` from above.
+
+> Note: API Server flag editing is not officially supported by `EKS Anywhere` tooling today, so the edits specificized below won’t persist if new API server is created. They need to reapplied after the new API server comes online.
 
 Here are the step by step instruction for updating the Kubernetes API server.
 
@@ -574,7 +576,7 @@ kubectl delete sa s3-echoer
 
 ## Conclusion
 
-We have shown how to integrate AWS EKS Anywhere with AWS Services so the applications running on customer datacenter can securely connect to these dependent AWS services. This provides the customer with the flexibility on deciding which all services will be self-hosted on-prem vs directly access from AWS.
+We have shown how to enable EKS Anywhere pod-level authentication with AWS so the applications running on customer datacenter can securely connect to these dependent services. This provides the customer with the flexibility on deciding which all services will be self-hosted on-prem vs directly access from AWS.
 
 ## Resources
 
